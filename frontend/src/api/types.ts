@@ -41,3 +41,27 @@ export type WellbeingInput = {
 export type Wellbeing = WellbeingInput & {
   updated_at: string;
 };
+
+export type MedicationReminderInput = {
+  title: string;
+  time: string;
+  frequency: string;
+};
+
+export type MedicationReminder = MedicationReminderInput & {
+  id: string;
+  created_at: string;
+};
+
+export type MedicationLogInput = {
+  taken: boolean;
+};
+
+export type MedicationLog = {
+  id: string;
+  reminder_id: string;
+  taken: boolean;
+  timestamp: string;
+  reminder_title?: string | null;
+  reminder_time?: string | null;
+};
