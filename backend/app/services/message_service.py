@@ -2,7 +2,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.components.llm import build_assistant_reply
 from app.dto import LLMMessageInput, MessageUserInput
-from app.repositories import message_repository, profile_repository
+from app.repositories import message_repository, profile_repository, wellbeing_repository
 
 
 DEFAULT_USER_ID = profile_repository.DEFAULT_USER_ID
@@ -37,7 +37,10 @@ async def create_assistant_message(session: AsyncSession, payload: LLMMessageInp
     if source_message.role != "user":
         raise ValueError("Provided message is not a user message")
 
-    reply_content = build_assistant_reply(source_message.content)
+    conversation = await message_repository.list_messages(session)
+    wellbeing = await wellbeing_repository.get_wellbeing(session)
+
+    reply_content = await build_assistant_reply(conversation, wellbeing)
 
     message = await message_repository.create_message(
         session,
