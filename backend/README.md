@@ -15,4 +15,4 @@ A lightweight FastAPI backend structured with routers, services, repositories, m
    uvicorn app.main:app --reload
    ```
 
-The API exposes note management endpoints under `/notes`.
+Add routers, models, and business logic within the corresponding directories to build out your API.

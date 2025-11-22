@@ -1,15 +1,11 @@
-from datetime import datetime
+"""SQLAlchemy models for notes.
 
-from sqlalchemy import Column, DateTime, Integer, String, Text
+Define your database tables using SQLAlchemy declarative models here.
+"""
 
 from app.components.database import Base
 
-
-class Note(Base):
-    __tablename__ = "notes"
-
-    id = Column(Integer, primary_key=True, index=True)
-    title = Column(String(200), nullable=False)
-    content = Column(Text, nullable=False)
-    summary = Column(Text, nullable=True)
-    created_at = Column(DateTime, default=datetime.utcnow, nullable=False)
+# Example:
+# class Note(Base):
+#     __tablename__ = "notes"
+#     ...
