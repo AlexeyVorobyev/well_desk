@@ -2,7 +2,7 @@
 set -euo pipefail
 
 APP_HOST=${APP_HOST:-0.0.0.0}
-APP_PORT=${APP_PORT:-3000}
+APP_PORT=${APP_PORT:-8081}
 
 cd "$(dirname "$0")"
 

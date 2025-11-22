@@ -9,8 +9,6 @@ class Settings(BaseSettings):
 
     app_name: str = "Well Desk API"
     debug: bool = False
-    host: str = "0.0.0.0"
-    port: int = 3000
 
     database_url: str = "sqlite:///./well_desk.db"
     database_url_async: str = "sqlite+aiosqlite:///./well_desk.db"
