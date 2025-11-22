@@ -15,7 +15,6 @@ export function AppLayout({ children }: PropsWithChildren) {
       <Container component="main" sx={{ flexGrow: 1, py: 4, pb: 16 }}>
         {children}
       </Container>
-      <MedicationRemindersDock />
     </Box>
   );
 }

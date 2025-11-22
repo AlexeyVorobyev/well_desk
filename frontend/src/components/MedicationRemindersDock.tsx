@@ -134,7 +134,7 @@ export function MedicationRemindersDock() {
   return (
     <Paper
       variant="outlined"
-      sx={{ position: 'fixed', bottom: 0, left: 0, right: 0, borderTopWidth: 2, zIndex: 10 }}
+      sx={{ borderTopWidth: 2, zIndex: 10 }}
     >
       <Box px={{ xs: 2, md: 4 }} py={2}>
         <Stack spacing={2}>

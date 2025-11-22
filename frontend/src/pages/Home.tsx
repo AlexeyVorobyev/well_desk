@@ -1,5 +1,6 @@
 import { Grid, Stack, Typography } from '@mui/material';
 import { KnowledgeBase } from '../components/KnowledgeBase';
+import { MedicationRemindersDock } from '../components/MedicationRemindersDock';
 import { MessagesPanel } from '../components/MessagesPanel';
 import { ProfileForm } from '../components/ProfileForm';
 import { WellbeingForm } from '../components/WellbeingForm';
@@ -34,6 +35,8 @@ export function HomePage() {
           <KnowledgeBase />
         </Grid>
       </Grid>
+
+      <MedicationRemindersDock />
     </Stack>
   );
 }
