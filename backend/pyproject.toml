@@ -13,6 +13,7 @@ dependencies = [
     "sqlalchemy",
     "aiosqlite",
     "langchain",
+    "langchain-openai",
     "alembic",
 ]
 

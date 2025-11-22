@@ -17,6 +17,7 @@ class Settings(BaseSettings):
 
     openai_api_key: Optional[str] = None
     llm_base_url: Optional[str] = None
+    llm_model: str = "gpt-4o-mini"
 
     default_user_id: str = "default-user"
     summary_enabled: bool = True
