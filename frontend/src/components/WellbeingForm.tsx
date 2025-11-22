@@ -26,6 +26,7 @@ export function WellbeingForm() {
   const queryClient = useQueryClient();
   const { data, isFetching, error } = useQuery({ queryKey: ['wellbeing'], queryFn: getWellbeing });
   const [form, setForm] = useState<WellbeingInput>(defaultForm);
+  const isEmptyWellbeing = data === null && !isFetching;
 
   const mutation = useMutation({
     mutationFn: upsertWellbeing,
@@ -62,6 +63,9 @@ export function WellbeingForm() {
       <CardContent>
         <Stack spacing={2} component="form" onSubmit={handleSubmit}>
           {error ? <Alert severity="error">Не удалось загрузить данные</Alert> : null}
+          {isEmptyWellbeing ? (
+            <Alert severity="info">Опросник пока не заполнен. Добавьте ответы, чтобы продолжить.</Alert>
+          ) : null}
           <Grid container spacing={2}>
             <Grid item xs={12} sm={4}>
               <TextField

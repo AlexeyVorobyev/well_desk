@@ -30,6 +30,7 @@ export function ProfileForm() {
   const queryClient = useQueryClient();
   const { data, isFetching, error } = useQuery({ queryKey: ['profile'], queryFn: getProfile });
   const [form, setForm] = useState<UserProfileInput>(toInput());
+  const isEmptyProfile = data === null && !isFetching;
 
   const mutation = useMutation({
     mutationFn: upsertProfile,
@@ -64,6 +65,9 @@ export function ProfileForm() {
       <CardContent>
         <Stack spacing={2} component="form" onSubmit={handleSubmit}>
           {error ? <Alert severity="error">Не удалось загрузить профиль</Alert> : null}
+          {isEmptyProfile ? (
+            <Alert severity="info">Профиль пока не заполнен. Добавьте данные, чтобы начать.</Alert>
+          ) : null}
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6} md={4}>
               <TextField
