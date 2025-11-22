@@ -2,7 +2,7 @@ from contextlib import contextmanager
 from typing import Iterator
 
 from sqlalchemy import create_engine
-from sqlalchemy.orm import declarative_base, sessionmaker
+from sqlalchemy.orm import Session, declarative_base, sessionmaker
 
 from app.settings import get_settings
 
@@ -12,7 +12,7 @@ SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 Base = declarative_base()
 
 
-def get_session() -> Iterator[sessionmaker]:
+def get_session() -> Iterator[Session]:
     """Yield a SQLAlchemy session for dependency injection."""
 
     session = SessionLocal()
@@ -23,7 +23,7 @@ def get_session() -> Iterator[sessionmaker]:
 
 
 @contextmanager
-def session_scope() -> Iterator[sessionmaker]:
+def session_scope() -> Iterator[Session]:
     """Provide a transactional scope around a series of operations."""
 
     session = SessionLocal()

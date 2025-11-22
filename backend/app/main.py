@@ -1,6 +1,8 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException, Request
+from fastapi.responses import JSONResponse
 
 from app.components.database import Base, engine
+from app.routers import messages, profile, wellbeing
 from app.settings import get_settings
 
 settings = get_settings()
@@ -14,4 +16,19 @@ def on_startup() -> None:
     Base.metadata.create_all(bind=engine)
 
 
-# Routers can be included here using app.include_router(...)
+@app.exception_handler(HTTPException)
+async def format_http_exceptions(request: Request, exc: HTTPException) -> JSONResponse:
+    """Return errors using the shared ErrorMessage schema."""
+
+    detail = exc.detail
+    if isinstance(detail, dict):
+        message = detail.get("message", str(detail))
+    else:
+        message = str(detail)
+
+    return JSONResponse(status_code=exc.status_code, content={"message": message})
+
+
+app.include_router(profile.router)
+app.include_router(messages.router)
+app.include_router(wellbeing.router)

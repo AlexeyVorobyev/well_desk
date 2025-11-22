@@ -12,6 +12,7 @@ dependencies = [
     "pydantic-settings",
     "sqlalchemy",
     "langchain",
+    "alembic",
 ]
 
 [build-system]

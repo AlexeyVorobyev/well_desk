@@ -1,4 +1,5 @@
 from functools import lru_cache
+from typing import Optional
 
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
@@ -8,7 +9,15 @@ class Settings(BaseSettings):
 
     app_name: str = "Well Desk API"
     debug: bool = False
-    database_url: str = "sqlite:///./notes.db"
+    host: str = "0.0.0.0"
+    port: int = 3000
+
+    database_url: str = "sqlite:///./well_desk.db"
+
+    openai_api_key: Optional[str] = None
+    llm_base_url: Optional[str] = None
+
+    default_user_id: str = "default-user"
     summary_enabled: bool = True
 
     model_config = SettingsConfigDict(
