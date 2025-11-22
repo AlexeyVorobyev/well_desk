@@ -6,7 +6,7 @@ from pydantic import BaseModel, Field
 
 class MedicationReminderInput(BaseModel):
     title: str = Field(..., min_length=1)
-    time: str = Field(..., regex=r"^\d{2}:\d{2}$")
+    time: str = Field(..., pattern=r"^\d{2}:\d{2}$")
     frequency: str = Field(..., min_length=1)
 
 
