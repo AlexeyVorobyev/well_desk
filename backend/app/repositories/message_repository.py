@@ -1,20 +1,22 @@
 from typing import List, Optional
 
-from sqlalchemy.orm import Session
+from sqlalchemy import select
+from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.models import Message
 
 
-def list_messages(session: Session) -> List[Message]:
-    return session.query(Message).order_by(Message.created_at.asc()).all()
+async def list_messages(session: AsyncSession) -> List[Message]:
+    result = await session.execute(select(Message).order_by(Message.created_at.asc()))
+    return list(result.scalars().all())
 
 
-def get_message(session: Session, message_id: int) -> Optional[Message]:
-    return session.query(Message).filter_by(id=message_id).one_or_none()
+async def get_message(session: AsyncSession, message_id: int) -> Optional[Message]:
+    return await session.get(Message, message_id)
 
 
-def create_message(
-    session: Session,
+async def create_message(
+    session: AsyncSession,
     *,
     user_id: str,
     role: str,
@@ -23,5 +25,5 @@ def create_message(
 ) -> Message:
     message = Message(user_id=user_id, role=role, content=content, reply_to_id=reply_to_id)
     session.add(message)
-    session.flush()
+    await session.flush()
     return message

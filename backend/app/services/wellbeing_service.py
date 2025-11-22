@@ -1,13 +1,16 @@
-from sqlalchemy.orm import Session
+from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.dto import WellbeingInput
 from app.repositories import wellbeing_repository
 
 
-def get_wellbeing(session: Session):
-    return wellbeing_repository.get_wellbeing(session)
+async def get_wellbeing(session: AsyncSession):
+    return await wellbeing_repository.get_wellbeing(session)
 
 
-def save_wellbeing(session: Session, payload: WellbeingInput):
+async def save_wellbeing(session: AsyncSession, payload: WellbeingInput):
     data = payload.model_dump()
-    return wellbeing_repository.upsert_wellbeing(session, data)
+    wellbeing = await wellbeing_repository.upsert_wellbeing(session, data)
+    await session.commit()
+    await session.refresh(wellbeing)
+    return wellbeing

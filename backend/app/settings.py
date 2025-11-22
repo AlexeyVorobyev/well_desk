@@ -13,6 +13,7 @@ class Settings(BaseSettings):
     port: int = 3000
 
     database_url: str = "sqlite:///./well_desk.db"
+    database_url_async: str = "sqlite+aiosqlite:///./well_desk.db"
 
     openai_api_key: Optional[str] = None
     llm_base_url: Optional[str] = None

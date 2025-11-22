@@ -10,10 +10,11 @@ app = FastAPI(title=settings.app_name, debug=settings.debug)
 
 
 @app.on_event("startup")
-def on_startup() -> None:
+async def on_startup() -> None:
     """Initialize database metadata on application startup."""
 
-    Base.metadata.create_all(bind=engine)
+    async with engine.begin() as conn:
+        await conn.run_sync(Base.metadata.create_all)
 
 
 @app.exception_handler(HTTPException)

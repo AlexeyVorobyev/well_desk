@@ -1,37 +1,22 @@
-from contextlib import contextmanager
-from typing import Iterator
+from typing import AsyncIterator
 
-from sqlalchemy import create_engine
-from sqlalchemy.orm import Session, declarative_base, sessionmaker
+from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
+from sqlalchemy.orm import DeclarativeBase
 
 from app.settings import get_settings
 
+
+class Base(DeclarativeBase):
+    """Base class for declarative models."""
+
+
 settings = get_settings()
-engine = create_engine(settings.database_url, connect_args={"check_same_thread": False})
-SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
-Base = declarative_base()
+engine = create_async_engine(settings.database_url_async, future=True)
+SessionLocal = async_sessionmaker(engine, expire_on_commit=False, class_=AsyncSession)
 
 
-def get_session() -> Iterator[Session]:
-    """Yield a SQLAlchemy session for dependency injection."""
+async def get_session() -> AsyncIterator[AsyncSession]:
+    """Yield an async SQLAlchemy session for dependency injection."""
 
-    session = SessionLocal()
-    try:
+    async with SessionLocal() as session:
         yield session
-    finally:
-        session.close()
-
-
-@contextmanager
-def session_scope() -> Iterator[Session]:
-    """Provide a transactional scope around a series of operations."""
-
-    session = SessionLocal()
-    try:
-        yield session
-        session.commit()
-    except Exception:
-        session.rollback()
-        raise
-    finally:
-        session.close()
