@@ -1,5 +1,6 @@
 import { AppBar, Box, Container, Toolbar, Typography } from '@mui/material';
 import type { PropsWithChildren } from 'react';
+import { MedicationRemindersDock } from './MedicationRemindersDock';
 
 export function AppLayout({ children }: PropsWithChildren) {
   return (
@@ -11,9 +12,10 @@ export function AppLayout({ children }: PropsWithChildren) {
           </Typography>
         </Toolbar>
       </AppBar>
-      <Container component="main" sx={{ flexGrow: 1, py: 4 }}>
+      <Container component="main" sx={{ flexGrow: 1, py: 4, pb: 16 }}>
         {children}
       </Container>
+      <MedicationRemindersDock />
     </Box>
   );
 }

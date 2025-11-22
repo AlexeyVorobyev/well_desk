@@ -3,7 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
 from app.components.database import Base, engine
-from app.routers import messages, profile, wellbeing
+from app.routers import medications, messages, profile, wellbeing
 from app.settings import get_settings
 
 settings = get_settings()
@@ -42,3 +42,4 @@ async def format_http_exceptions(request: Request, exc: HTTPException) -> JSONRe
 app.include_router(profile.router)
 app.include_router(messages.router)
 app.include_router(wellbeing.router)
+app.include_router(medications.router)
