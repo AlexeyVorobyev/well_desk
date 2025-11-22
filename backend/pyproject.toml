@@ -1,0 +1,22 @@
+[project]
+name = "well-desk-backend"
+version = "0.1.0"
+description = "FastAPI backend with SQLite, LangChain, and layered architecture"
+authors = [{ name = "Well Desk" }]
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "fastapi",
+    "uvicorn[standard]",
+    "pydantic",
+    "pydantic-settings",
+    "sqlalchemy",
+    "langchain",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.uv]
+package = true
